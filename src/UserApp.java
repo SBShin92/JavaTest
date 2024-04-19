@@ -15,7 +15,7 @@ public class UserApp {
 		lst.add(usr01);
 		lst.add(usr02);
 		lst.add(usr03);
-		
+
 		System.out.println("---------------회원+운영자 전체리스트-------------------");
 		Iterator<User> iter = lst.iterator();
 		for (int i = 1; iter.hasNext(); i++) {
@@ -23,11 +23,16 @@ public class UserApp {
 			iter.next().showInfo();
 		}
 		System.out.println();
-		
+
+		lst.stream()
+				.filter(t -> t instanceof Staff && t.getName().equals("운영자"))
+				.map(t -> (Staff)t)
+				.forEach(t -> System.out.printf("운영자의 연봉은 %d 입니다.%n",
+						(t.getSalary() * 12)));
+
 		for (User node: lst) {
-			if (node.getName().equals("운영자")) {
-				Staff tmp = (Staff)node;
-				System.out.printf("운영자의 연봉은 %d 입니다.%n",
+			if (node.getName().equals("운영자") && node instanceof Staff tmp) {
+                System.out.printf("운영자의 연봉은 %d 입니다.%n",
 						(tmp.getSalary() * 12));
 			}
 		}
